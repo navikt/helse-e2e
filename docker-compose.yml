@@ -2,6 +2,10 @@ version: '3'
 services:
   kafka:
     image: confluentinc/cp-kafka:5.1.0
+    networks:
+      default:
+        aliases:
+          - kafka
     environment:
     - KAFKA_ADVERTISED_LISTENERS=LISTENER_DOCKER_INTERNAL://kafka:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
     - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
