@@ -29,20 +29,26 @@ services:
     image: navikt/sparkel:a3f527b
     ports:
     - "8080:8080"
+    volumes:
+    - ./mockkeys:/mockkeys
     environment:
+    - NAV_TRUSTSTORE_PATH=/mockkeys/truststore.jks
+    - NAV_TRUSTSTORE_PASSWORD=changeit
     # this will be mocked
-    - JWKS_URL=http://localhost
-    - JWT_ISSUER=local_issuer
-    - SECURITY_TOKEN_SERVICE_URL=http://localhost
-    - SECURITY_TOKEN_SERVICE_REST_URL=http://localhost
-    - PERSON_ENDPOINTURL=http://localhost
-    - INNTEKT_ENDPOINTURL=http://localhost
-    - AAREG_ENDPOINTURL=http://localhost
-    - ORGANISASJON_ENDPOINTURL=http://localhost
-    - SAK_OG_BEHANDLING_ENDPOINTURL=http://localhost
-    - HENT_SYKEPENGER_ENDPOINTURL=http://localhost
-    - MELDEKORT_UTBETALINGSGRUNNLAG_ENDPOINTURL=http://localhost
-    - AKTORREGISTER_URL=http://localhost
+    - JWKS_URL=https://vtpmock:8063/isso/oauth2/connect/jwk_uri
+    - JWT_ISSUER=https://vtpmock:8063/isso/oauth2
+    - SECURITY_TOKEN_SERVICE_URL=https://vtpmock:8063/SecurityTokenServiceProvider/
+    - SECURITY_TOKEN_SERVICE_REST_URL=https://vtpmock:8063/stsrest
+    - SECURITY_TOKEN_SERVICE_USERNAME=srvheisann
+    - SECURITY_TOKEN_SERVICE_PASSWORD=tralalal
+    - PERSON_ENDPOINTURL=https://vtpmock:8063/tpsws/ws/Person/v3
+    - INNTEKT_ENDPOINTURL=https://vtpmock:8063/inntektskomponenten-ws/inntekt/v3/Inntekt
+    - AAREG_ENDPOINTURL=https://vtpmock:8063/aareg-core/ArbeidsforholdService/v3
+    - ORGANISASJON_ENDPOINTURL=https://vtpmock:8063/ereg/ws/OrganisasjonService/v5
+    - SAK_OG_BEHANDLING_ENDPOINTURL=http://localhost/TODO
+    - HENT_SYKEPENGER_ENDPOINTURL=https://vtpmock:8063/sykepenger/v2/Sykepenger_v2
+    - MELDEKORT_UTBETALINGSGRUNNLAG_ENDPOINTURL=https://vtpmock:8063/ail_ws/MeldekortUtbetalingsgrunnlag_v1
+    - AKTORREGISTER_URL=https://vtpmock:8063/aktoerrest
   spa:
     image: navikt/spa:f1441a7
     depends_on:
@@ -53,3 +59,10 @@ services:
     - KAFKA_BOOTSTRAP_SERVERS=kafka:19092
     ports:
     - "8181:80"
+  vtpmock:
+    image: navikt/spvtpmock:7c36f33
+    ports:
+    - "8063:8063"
+    - "8060:8060"
+    volumes:
+    - ./mockkeys:/root/spsak
