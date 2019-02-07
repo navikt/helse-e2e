@@ -1,0 +1,49 @@
+version: '3'
+services:
+  kafka:
+    image: confluentinc/cp-kafka:5.1.0
+    environment:
+    - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+    - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+    - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+    ports:
+    - "9092:9092"
+    depends_on:
+    - zookeeper
+    volumes:
+      - ./kafka_scripts:/kafka_scripts
+    command: ["/kafka_scripts/wait_for_zookeeper.sh", "zookeeper:2181", "/etc/confluent/docker/run"]
+  zookeeper:
+    image: confluentinc/cp-zookeeper:5.1.0
+    environment:
+    - ZOOKEEPER_CLIENT_PORT=2181
+    ports:
+    - "2181:2181"
+  sparkel:
+    image: navikt/sparkel:a3f527b
+    ports:
+    - "8080:8080"
+    environment:
+    # this will be mocked
+    - JWKS_URL=http://localhost
+    - JWT_ISSUER=local_issuer
+    - SECURITY_TOKEN_SERVICE_URL=http://localhost
+    - SECURITY_TOKEN_SERVICE_REST_URL=http://localhost
+    - PERSON_ENDPOINTURL=http://localhost
+    - INNTEKT_ENDPOINTURL=http://localhost
+    - AAREG_ENDPOINTURL=http://localhost
+    - ORGANISASJON_ENDPOINTURL=http://localhost
+    - SAK_OG_BEHANDLING_ENDPOINTURL=http://localhost
+    - HENT_SYKEPENGER_ENDPOINTURL=http://localhost
+    - MELDEKORT_UTBETALINGSGRUNNLAG_ENDPOINTURL=http://localhost
+    - AKTORREGISTER_URL=http://localhost
+  spa:
+    image: navikt/spa:f1441a7
+    depends_on:
+      - kafka
+    volumes:
+      - ./spa_scripts:/spa_scripts
+    environment:
+    - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+    ports:
+    - "8181:80"
