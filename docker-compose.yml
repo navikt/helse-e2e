@@ -60,9 +60,12 @@ services:
     ports:
     - "8181:80"
   vtpmock:
-    image: navikt/spvtpmock:7c36f33
+    image: navikt/spvtpmock:4efa0b9
     ports:
     - "8063:8063"
     - "8060:8060"
+    #environment:
+    #- JAVA_OPTS=-Dscenarios.dir=/app/model/scenarios/ -Dscenarios.reload=true
     volumes:
     - ./mockkeys:/root/spsak
+    #- ./testscenarios:/app/model/scenarios
