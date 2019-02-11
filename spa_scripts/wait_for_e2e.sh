@@ -1,12 +1,10 @@
 #!/bin/sh
-TIMEOUT=30
-HOST=$(printf "%s\n" "$1"| cut -d : -f 1)
-PORT=$(printf "%s\n" "$1"| cut -d : -f 2)
-shift
+TIMEOUT=60
 COMMAND=$@
-wait_for_zookeeper() {
+wait_for_e2e() {
   for i in `seq $TIMEOUT` ; do
-    result=$(echo 'ruok' | nc "$HOST" "$PORT")
+    result=$(wget -qO- http://e2e:3231/ruok)
+    echo $result
     if [ "$result" = "imok" ] ; then
       if [ -n "$COMMAND" ] ; then
         exec $COMMAND
@@ -18,4 +16,4 @@ wait_for_zookeeper() {
   echo "Timed out" >&2
   exit 1
 }
-wait_for_zookeeper
+wait_for_e2e

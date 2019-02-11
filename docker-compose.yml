@@ -25,6 +25,14 @@ services:
     - ZOOKEEPER_CLIENT_PORT=2181
     ports:
     - "2181:2181"
+  e2e:
+    build: ./e2e/.
+    depends_on:
+      - kafka
+    environment:
+    - KAFKA_BOOTSTRAP_SERVERS=kafka:19092
+    ports:
+    - "3231:3231"
   sparkel:
     image: navikt/sparkel:a3f527b
     ports:
@@ -52,11 +60,12 @@ services:
   spa:
     image: navikt/spa:f1441a7
     depends_on:
-      - kafka
+      - e2e
     volumes:
       - ./spa_scripts:/spa_scripts
     environment:
     - KAFKA_BOOTSTRAP_SERVERS=kafka:19092
+    entrypoint: ["/spa_scripts/wait_for_e2e.sh", "java", "-jar", "app.jar"]
     ports:
     - "8181:80"
   vtpmock:

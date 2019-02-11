@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <parent>
+      <groupId>no.nav.helse</groupId>
+      <artifactId>helse-e2e</artifactId>
+      <version>0.1</version>
+   </parent>
+
+   <packaging>jar</packaging>
+
+   <groupId>no.nav.helse</groupId>
+   <artifactId>e2e</artifactId>
+   <version>0.1</version>
+   <description>End to end testing of helse microservices</description>
+   <url>https://github.com/navikt/helse-e2e</url>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.jetbrains.kotlin</groupId>
+         <artifactId>kotlin-stdlib-jdk8</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>io.ktor</groupId>
+         <artifactId>ktor-server-netty</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.junit.jupiter</groupId>
+         <artifactId>junit-jupiter-api</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.junit.jupiter</groupId>
+         <artifactId>junit-jupiter-engine</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.junit.jupiter</groupId>
+         <artifactId>junit-jupiter-params</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.kafka</groupId>
+         <artifactId>kafka-clients</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>ch.qos.logback</groupId>
+         <artifactId>logback-classic</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.jetbrains.kotlinx</groupId>
+         <artifactId>atomicfu</artifactId>
+         <scope>provided</scope>
+      </dependency>
+   </dependencies>
+   <build>
+      <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+      <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
+      <plugins>
+         <plugin>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <version>${kotlin.version}</version>
+
+            <executions>
+               <execution>
+                  <id>compile</id>
+                  <goals><goal>compile</goal></goals>
+               </execution>
+               <execution>
+                  <id>test-compile</id>
+                  <goals><goal>test-compile</goal></goals>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven-surefire-plugin.version}</version>
+         </plugin>
+         <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>repackage</goal>
+                  </goals>
+                  <configuration>
+                     <mainClass>
+                        no.nav.helse.e2e.AppKt
+                     </mainClass>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+      </plugins>
+
+      <pluginManagement>
+         <plugins>
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-source-plugin</artifactId>
+               <version>3.0.1</version>
+            </plugin>
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-resources-plugin</artifactId>
+               <version>3.1.0</version>
+            </plugin>
+         </plugins>
+      </pluginManagement>
+   </build>
+
+   <licenses>
+      <license>
+         <name>MIT License</name>
+         <url>https://opensource.org/licenses/MIT</url>
+      </license>
+   </licenses>
+   <developers>
+      <developer>
+         <organization>NAV (Arbeids- og velferdsdirektoratet) - The Norwegian Labour and Welfare Administration</organization>
+         <organizationUrl>https://www.nav.no</organizationUrl>
+      </developer>
+   </developers>
+
+   <scm>
+      <developerConnection>scm:git:git@github.com:navikt/helse-e2e.git</developerConnection>
+      <connection>scm:git:git@github.com:navikt/helse-e2e.git</connection>
+      <url>https://github.com/navikt/helse-e2e</url>
+      <tag>HEAD</tag>
+   </scm>
+
+</project>
