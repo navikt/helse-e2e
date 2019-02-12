@@ -60,7 +60,7 @@ services:
   spa:
     image: navikt/spa:f1441a7
     depends_on:
-      - e2e
+      - kafka
     volumes:
       - ./spa_scripts:/spa_scripts
     environment:
