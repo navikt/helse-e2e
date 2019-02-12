@@ -3,7 +3,7 @@ TIMEOUT=60
 COMMAND=$@
 wait_for_e2e() {
   for i in `seq $TIMEOUT` ; do
-    result=$(wget -qO- http://e2e:3231/ruok)
+    result=$(wget -qO- http://$E2E_HOST/ruok)
     echo $result
     if [ "$result" = "imok" ] ; then
       if [ -n "$COMMAND" ] ; then

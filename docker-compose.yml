@@ -62,9 +62,10 @@ services:
     depends_on:
       - kafka
     volumes:
-      - ./spa_scripts:/spa_scripts
+      - ./e2e_scripts:/e2e_scripts
     environment:
     - KAFKA_BOOTSTRAP_SERVERS=kafka:19092
+    - E2E_HOST=e2e:3231
     entrypoint: ["/spa_scripts/wait_for_e2e.sh", "java", "-jar", "app.jar"]
     ports:
     - "8181:80"
