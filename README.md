@@ -3,6 +3,16 @@ Helse-E2E
 
 End to End testing
 
+
+## Oversikt
+
+Oppsett av komponentene som kjøres for E2E tests kan sees [her](../blob/master/docker-compose.png)
+
+For å oppdatere figuren bruk denne kommandoen:
+
+```
+docker run --rm -it --name dcv -v $(pwd):/input pmsipilot/docker-compose-viz render --no-ports --no-networks -m image docker-compose.yml
+```
 ## Kom i gang
 
 #### Nøkler:
