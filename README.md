@@ -16,7 +16,7 @@ docker run --rm -it --name dcv -v $(pwd):/input pmsipilot/docker-compose-viz ren
 ## Kom i gang
 
 ```
-mvn cleam install
+mvn clean install
 docker-compose up --build
 ```
 
