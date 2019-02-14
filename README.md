@@ -15,6 +15,11 @@ docker run --rm -it --name dcv -v $(pwd):/input pmsipilot/docker-compose-viz ren
 ```
 ## Kom i gang
 
+```
+mvn cleam install
+docker-compose up --build
+```
+
 #### Nøkler:
 
 For at sparkel skal kunne kommunisere med vtpmock over SSL samt for å signere JWT´er med mock-STS må det genereres noen nøkler.
