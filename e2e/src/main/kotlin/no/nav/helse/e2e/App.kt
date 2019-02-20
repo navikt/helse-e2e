@@ -6,6 +6,7 @@ import io.ktor.routing.get
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import no.nav.helse.streams.Topics
 import org.apache.kafka.clients.admin.AdminClient
 import org.apache.kafka.clients.admin.AdminClientConfig
 import org.apache.kafka.clients.admin.NewTopic
@@ -31,15 +32,15 @@ fun main() {
 }
 
 fun createKafkaTopics() {
-    createTopic("privat-sykepengebehandling")
-    createTopic("aapen-helse-sykepenger-vedtak")
+    createTopic(Topics.SYKEPENGESØKNADER_INN.name)
+    createTopic(Topics.VEDTAK_SYKEPENGER.name)
 }
 
 private fun createTopic(topicName: String) {
     if (!admin.listTopics().names().get().contains(topicName)) {
         LOG.info("creating topic: {}", topicName)
         val topicList = ArrayList<NewTopic>()
-        val newTopic = NewTopic(topicName, 1, 1)
+        val newTopic = NewTopic(topicName, 3, 1)
         topicList.add(newTopic)
         admin.createTopics(topicList)
     }

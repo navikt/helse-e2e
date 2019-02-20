@@ -1,5 +1,6 @@
 package no.nav.helse.e2e
 
+import no.nav.helse.streams.Topics
 import org.apache.kafka.clients.producer.ProducerRecord
 
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -17,9 +18,10 @@ class SykePengeBehandlingE2E {
     @Test
     fun e2e_what_goes_in_must_come_out () {
         LOG.info("sending a message")
-        consumer.subscribe(listOf("aapen-helse-sykepenger-vedtak"))
+        consumer.subscribe(listOf(Topics.VEDTAK_SYKEPENGER.name))
         val readText = SykePengeBehandlingE2E::class.java.getResource("/test_soknad.json").readText()
-        producer.send(ProducerRecord("privat-sykepengebehandling",readText))
+        producer.send(ProducerRecord(Topics.SYKEPENGESØKNADER_INN.name,readText))
+        producer.flush()
         val records = consumer.poll(Duration.ofSeconds(10))
         consumer.commitSync()
         assertEquals(1,records.count())

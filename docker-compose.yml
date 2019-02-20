@@ -61,12 +61,20 @@ services:
     image: navikt/spa:f1441a7
     depends_on:
       - kafka
+      - sparkel
     volumes:
       - ./e2e_scripts:/e2e_scripts
+      - ./mockkeys:/mockkeys
     environment:
     - KAFKA_BOOTSTRAP_SERVERS=kafka:19092
     - E2E_HOST=e2e:3231
-    entrypoint: ["/e2e_scripts/wait_for_e2e.sh", "java", "-jar", "app.jar"]
+    - NAV_TRUSTSTORE_PATH=/mockkeys/truststore.jks
+    - NAV_TRUSTSTORE_PASSWORD=changeit
+    - SERVICEUSER_USERNAME=srvheisann
+    - SERVICEUSER_PASSWORD=tralalal
+    - SECURITY_TOKEN_SERVICE_REST_URL=https://vtpmock:8063/stsrest
+    - SPARKEL_BASE_URL=https://sparkel:8080
+    entrypoint: ["/e2e_scripts/wait_for_e2e.sh"]
     ports:
     - "8181:80"
   vtpmock:
