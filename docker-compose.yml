@@ -83,7 +83,7 @@ services:
     ports:
     - "8181:80"
   vtpmock:
-    image: navikt/spvtpmock:f8f518f
+    image: navikt/spvtpmock:b816125
     ports:
     - "8063:8063"
     - "8060:8060"
