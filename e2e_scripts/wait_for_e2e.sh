@@ -1,6 +1,6 @@
 #!/bin/sh
 TIMEOUT=60
-COMMAND=/entrypoint.sh
+COMMAND=$@
 wait_for_e2e() {
   for i in `seq $TIMEOUT` ; do
     result=$(wget -qO- http://$E2E_HOST/ruok)

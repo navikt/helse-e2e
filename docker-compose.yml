@@ -79,7 +79,7 @@ services:
     - SECURITY_TOKEN_SERVICE_REST_URL=https://vtpmock:8063/stsrest
     - SPARKEL_BASE_URL=http://sparkel:8080
     - PLAIN_TEXT_KAFKA=true
-    entrypoint: ["/e2e_scripts/wait_for_e2e.sh"]
+    entrypoint: ["/e2e_scripts/wait_for_e2e.sh", "/entrypoint.sh"]
     ports:
     - "8181:80"
   vtpmock:
