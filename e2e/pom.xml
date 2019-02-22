@@ -67,6 +67,18 @@
          <groupId>io.confluent</groupId>
          <artifactId>kafka-streams-avro-serde</artifactId>
       </dependency>
+      <dependency>
+         <groupId>com.github.kittinunf.fuel</groupId>
+         <artifactId>fuel</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>com.fasterxml.jackson.module</groupId>
+         <artifactId>jackson-module-kotlin</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>com.fasterxml.jackson.datatype</groupId>
+         <artifactId>jackson-datatype-jsr310</artifactId>
+      </dependency>
    </dependencies>
    <build>
       <sourceDirectory>src/main/kotlin</sourceDirectory>

@@ -34,7 +34,9 @@ services:
     ports:
     - "3231:3231"
   sparkel:
-    image: navikt/sparkel:a3f527b
+    image: navikt/sparkel:97dab42
+    depends_on:
+      - vtpmock
     ports:
     - "8080:8080"
     volumes:
@@ -57,8 +59,10 @@ services:
     - HENT_SYKEPENGER_ENDPOINTURL=https://vtpmock:8063/sykepenger/v2/Sykepenger_v2
     - MELDEKORT_UTBETALINGSGRUNNLAG_ENDPOINTURL=https://vtpmock:8063/ail_ws/MeldekortUtbetalingsgrunnlag_v1
     - AKTORREGISTER_URL=https://vtpmock:8063/aktoerrest
+    - ARBEIDSFORDELING_ENDPOINTURL=http://localhost/TODO
+    - DISABLE_CN_CHECK=true
   spa:
-    image: navikt/spa:f1441a7
+    image: navikt/spa:7c87fd1
     depends_on:
       - kafka
       - sparkel
@@ -70,10 +74,11 @@ services:
     - E2E_HOST=e2e:3231
     - NAV_TRUSTSTORE_PATH=/mockkeys/truststore.jks
     - NAV_TRUSTSTORE_PASSWORD=changeit
-    - SERVICEUSER_USERNAME=srvheisann
-    - SERVICEUSER_PASSWORD=tralalal
+    - SERVICEUSER_USERNAME=srvspa
+    - SERVICEUSER_PASSWORD=trololol
     - SECURITY_TOKEN_SERVICE_REST_URL=https://vtpmock:8063/stsrest
-    - SPARKEL_BASE_URL=https://sparkel:8080
+    - SPARKEL_BASE_URL=http://sparkel:8080
+    - PLAIN_TEXT_KAFKA=true
     entrypoint: ["/e2e_scripts/wait_for_e2e.sh"]
     ports:
     - "8181:80"
