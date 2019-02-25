@@ -22,6 +22,7 @@ script:
   export SPA_IMAGE=$(grep -oP 'image: \K(.+)' ./helse-iac/preprod/spa/naiserator.yaml)
   export SPARKEL_IMAGE=$(grep -oP 'image: \K(.+)' ./helse-iac/preprod/sparkel/naiserator.yaml)
 - docker-compose up --build -d
+- pwd
 - "./e2e_scripts/wait_for_e2e.sh mvn failsafe:integration-test"
 - docker-compose stop
 env:
