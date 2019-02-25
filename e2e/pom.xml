@@ -121,9 +121,6 @@
                <execution>
                   <id>e2e-tests</id>
                   <phase>integration-test</phase>
-                  <goals>
-                     <goal>integration-test</goal>
-                  </goals>
                </execution>
             </executions>
          </plugin>

@@ -23,8 +23,11 @@ script:
   export SPARKEL_IMAGE=$(grep -oP 'image: \K(.+)' ./helse-iac/preprod/sparkel/naiserator.yaml)
 - docker-compose up --build -d
 - pwd
-- "./e2e_scripts/wait_for_e2e.sh mvn failsafe:integration-test"
+- "./e2e_scripts/wait_for_e2e.sh mvn failsafe:integration-test failsafe:verify"
 - docker-compose stop
+cache:
+  directories:
+    - $HOME/.m2
 env:
   global:
   - secure: 1+oVWDmZSSIyeRrpos2QO1muNmpEtYgmjYpjg71ZG4O4peBAUsFj91WngLa+7ZWlB3ZrLsSXpsTPlQvzs8kHPxjQtR8MnChOsM3LVzUJMImkxNWQ0pP+sQ3AQAO48bCXPNEN7l9GPCKa2qbzGwoFI3rwNPcH5zFSMrJoBeiyMhIz5UZXAB7mQqSna/0bmjOjHrApjR6nbfpdRlGKNZMuxONQAKKn3Xf6Fr2KH8VwHp33NTfxdxdaVCZtb0sgqraIuDOyEFHaWSUhZ3HcIMaeXJdewJe+1AJab4zSmNhUmSoA/Aqa5hpkP6ICirPk9gbdyyullMubHUvFSO+zCcqNJH7zHoFxfNwPD6LiOrbQPm2Zv8xr9duv09ai+EouAYKo7qeflVOaai8DwSN0wGk0w9uf5Sr1OuOKgkyQAbsNsf18HaNh115Wbrqy/r35bOxYlrg5KGQQCq+D0usrp/QFueWbqsw1bBfssgPA06CcxRElSK694GZhhB1c0C5FYb4rTXAM88eHOK7YyqPcK8VpRY291lc8c6Ae5HBDQR9zu1wnbLhJPTB6a0WZnppUg/sHPgSwqTB08OKhT1085TGU1mzSzfsPmORvt8/pibEqD/jyEMgYWSHm/G7CrHukusVdZRBiwcd/83rbPbgKgZMCZF2PxV3EcFXzQZ8TvnrBtlE=
