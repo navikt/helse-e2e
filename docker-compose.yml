@@ -34,7 +34,8 @@ services:
     ports:
     - "3231:3231"
   sparkel:
-    image: navikt/sparkel:97dab42
+    #image: navikt/sparkel:97dab42
+    image: ${SPARKEL_IMAGE}
     depends_on:
       - vtpmock
     ports:
@@ -62,7 +63,8 @@ services:
     - ARBEIDSFORDELING_ENDPOINTURL=http://localhost/TODO
     - DISABLE_CN_CHECK=true
   spa:
-    image: navikt/spa:7c87fd1
+    #image: navikt/spa:7c87fd1
+    image: ${SPA_IMAGE}
     depends_on:
       - kafka
       - sparkel

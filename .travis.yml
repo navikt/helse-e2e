@@ -20,11 +20,10 @@ script:
 - |
   git clone https://x-access-token:$GH_TOKEN@github.com/navikt/helse-iac.git
 
-  export SPA_IMAGE=$(grep -oP 'image: \K(.+)' ./helse-iac/pre-prod/spa/naiserator.yaml)
+  export SPA_IMAGE=$(grep -oP 'image: \K(.+)' ./helse-iac/preprod/spa/naiserator.yaml)
   export SPARKEL_IMAGE=$(grep -oP 'image: \K(.+)' ./helse-iac/preprod/sparkel/naiserator.yaml)
   echo "Got spa:$SPA_IMAGE and sparkel:$SPARKEL_IMAGE"
-  docker-compose build
-  docker-compose up --no-build -d
+  docker-compose up --build -d
   "./e2e_scripts/wait_for_e2e.sh mvn failsafe:integration-test"
   docker-compose stop
 env:
