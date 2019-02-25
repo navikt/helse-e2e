@@ -4,16 +4,25 @@ jdk:
 - openjdk11
 services:
 - docker
+before_install:
+  - openssl aes-256-cbc -K $encrypted_dbb6b83c1074_key -iv $encrypted_dbb6b83c1074_iv
+    -in travis/helseci.key.enc -out travis/helseci.key -d
+  - git clone https://github.com/navikt/github-apps-support.git
+  - export PATH=`pwd`/github-apps-support/bin:$PATH
+  - export GH_TOKEN=$(generate-installation-token.sh `generate-jwt.sh ./travis/helseci.key
+    $GITHUB_APP_ID`)
+  - echo -e "machine github.com\n  login $GH_TOKEN" > ~/.netrc
 script:
 - set -e
 - mvn clean install
 - ./makekeystore.sh
 - docker-compose rm -f
 - |
-  git clone https://github.com/navikt/helse-iac
+  git clone https://x-access-token:$GH_TOKEN@github.com/navikt/helse-iac
+
   export SPA_IMAGE=$(grep -oP 'image: \K(.+)' ./helse-iac/pre-prod/spa/naiserator.yaml)
   export SPARKEL_IMAGE=$(grep -oP 'image: \K(.+)' ./helse-iac/preprod/sparkel/naiserator.yaml)
-  echo "Got spa:$SPA_IMAGE and sparkel:$SPARKE_IMAGE"
+  echo "Got spa:$SPA_IMAGE and sparkel:$SPARKEL_IMAGE"
   docker-compose build
   docker-compose up --no-build -d
   "./e2e_scripts/wait_for_e2e.sh mvn failsafe:integration-test"
