@@ -16,11 +16,11 @@ script:
 - set -e
 - mvn clean install
 - ./makekeystore.sh
-- docker-compose rm -f
 - |
   git clone https://x-access-token:$GH_TOKEN@github.com/navikt/helse-iac.git
   export SPA_IMAGE=$(grep -oP 'image: \K(.+)' ./helse-iac/preprod/spa/naiserator.yaml)
   export SPARKEL_IMAGE=$(grep -oP 'image: \K(.+)' ./helse-iac/preprod/sparkel/naiserator.yaml)
+- docker-compose rm -f
 - docker-compose up --build -d
 - pwd
 - "./e2e_scripts/wait_for_e2e.sh mvn failsafe:integration-test failsafe:verify"
