@@ -42,7 +42,7 @@ class SykePengeBehandlingE2E {
         val soknad = createSoknad()
         producer.send(ProducerRecord(Topics.SYKEPENGESØKNADER_INN.name,defaultObjectMapper.writeValueAsString(soknad)))
         producer.flush()
-        val records = consumer.poll(Duration.ofSeconds(20))
+        val records = consumer.poll(Duration.ofSeconds(30))
         consumer.commitSync()
         log.info(records.first().value())
         assertEquals(1,records.count())
