@@ -83,7 +83,7 @@ services:
     ports:
     - "8181:80"
   vtpmock:
-    image:${VTPMOCK_IMAGE}
+    image: ${VTPMOCK_IMAGE}
     ports:
     - "8063:8063"
     - "8060:8060"
