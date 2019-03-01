@@ -20,10 +20,11 @@ script:
   git clone https://x-access-token:$GH_TOKEN@github.com/navikt/helse-iac.git
   export SPA_IMAGE=$(grep -oP 'image: \K(.+)' ./helse-iac/preprod/spa/naiserator.yaml)
   export SPARKEL_IMAGE=$(grep -oP 'image: \K(.+)' ./helse-iac/preprod/sparkel/naiserator.yaml)
+  export VTPMOCK_IMAGE=navikt/spvtpmock:$(curl -s https://registry.hub.docker.com/v2/repositories/navikt/spvtpmock/tags/ | jq -r '."results"[]["name"]' | sed -n 1p)
 - docker-compose rm -f
 - docker-compose up --build -d
 - pwd
-- "./e2e_scripts/wait_for_e2e.sh mvn failsafe:integration-test failsafe:verify"
+#- "./e2e_scripts/wait_for_e2e.sh mvn failsafe:integration-test failsafe:verify"
 - docker-compose stop
 cache:
   directories:

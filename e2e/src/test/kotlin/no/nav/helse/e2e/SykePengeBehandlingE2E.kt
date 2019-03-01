@@ -29,7 +29,7 @@ class SykePengeBehandlingE2E {
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
 
     init {
-        val (_, _, result) = "http://localhost:8060/api/testscenario/40".httpPost().responseString()
+        val (_, _, result) = "http://localhost:8060/api/testscenario/200".httpPost().responseString()
         val json = defaultObjectMapper.readValue(result.get(), JsonNode::class.java)
         aktorId = json.get("personopplysninger").get("søkerAktørIdent").asText()
         log.info("Created scenario for person with id $aktorId")
@@ -49,9 +49,9 @@ class SykePengeBehandlingE2E {
     }
 
     fun createSoknad(): Sykepengesoknad {
-        return Sykepengesoknad(aktorId, Arbeidsgiver("Firma 1", "979191138"), false,
-                LocalDate.of(2018,3,1), LocalDate.of(2018,4,1),
-                LocalDate.of(2018,3,1), null, emptyList(), false)
+        return Sykepengesoknad(aktorId, Arbeidsgiver("AS MOCK", "910825518"), false,
+                LocalDate.of(2019,2,1), LocalDate.of(2019,1,1),
+                LocalDate.of(2019,2,1), null, emptyList(), false)
     }
 
 }
@@ -65,7 +65,8 @@ data class Sykepengesoknad(val aktorId: String,
                            val startSyketilfelle: LocalDate,
                            val sendtNav: LocalDateTime?,
                            val soknadsperioder: List<Soknadsperiode>,
-                           val harVurdertInntekt: Boolean)
+                           val harVurdertInntekt: Boolean,
+                           val status: String = "SENDT")
 
 
 data class Arbeidsgiver(val navn : String , val orgnummer : String )
