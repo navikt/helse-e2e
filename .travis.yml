@@ -4,22 +4,13 @@ jdk:
 - openjdk11
 services:
 - docker
-before_install:
-  - openssl aes-256-cbc -K $encrypted_dbb6b83c1074_key -iv $encrypted_dbb6b83c1074_iv
-    -in travis/helseci.key.enc -out travis/helseci.key -d
-  - git clone https://github.com/navikt/github-apps-support.git
-  - export PATH=`pwd`/github-apps-support/bin:$PATH
-  - export GH_TOKEN=$(generate-installation-token.sh `generate-jwt.sh ./travis/helseci.key
-    $GITHUB_APP_ID`)
-  - echo -e "machine github.com\n  login $GH_TOKEN" > ~/.netrc
 script:
 - set -e
 - mvn clean install
 - ./makekeystore.sh
 - |
-  git clone https://x-access-token:$GH_TOKEN@github.com/navikt/helse-iac.git
-  export SPA_IMAGE=$(grep -oP 'image: \K(.+)' ./helse-iac/preprod/spa/naiserator.yaml)
-  export SPARKEL_IMAGE=$(grep -oP 'image: \K(.+)' ./helse-iac/preprod/sparkel/naiserator.yaml)
+  export SPA_IMAGE=navikt/spa:$(curl -s https://registry.hub.docker.com/v2/repositories/navikt/spa/tags/ | jq -r '."results"[]["name"]' | sed -n 1p)
+  export SPARKEL_IMAGE=navikt/sparkel:$(curl -s https://registry.hub.docker.com/v2/repositories/navikt/sparkel/tags/ | jq -r '."results"[]["name"]' | sed -n 1p)
   export VTPMOCK_IMAGE=navikt/spvtpmock:$(curl -s https://registry.hub.docker.com/v2/repositories/navikt/spvtpmock/tags/ | jq -r '."results"[]["name"]' | sed -n 1p)
 - docker-compose rm -f
 - docker-compose up --build -d
