@@ -67,7 +67,7 @@ class SykePengeBehandlingE2E {
     private fun sendSoknad(soknad: Sykepengesoknad): ConsumerRecords<String, String>? {
         producer.send(ProducerRecord(Topics.SYKEPENGESØKNADER_INN.name, defaultObjectMapper.writeValueAsString(soknad)))
         producer.flush()
-        val records = consumer.poll(Duration.ofSeconds(60))
+        val records = consumer.poll(Duration.ofSeconds(30))
         consumer.commitSync()
         val json = defaultObjectMapper.readTree(records.first().value())
         log.info(defaultObjectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(json))

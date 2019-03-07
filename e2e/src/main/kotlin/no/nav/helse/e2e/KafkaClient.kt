@@ -28,7 +28,6 @@ class KafkaClient() {
         val props = Properties().apply {
             put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092")
             put(ConsumerConfig.GROUP_ID_CONFIG, "E2E-tester")
-            put(ConsumerConfig.CLIENT_ID_CONFIG, "myclient")
             put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer::class.java.canonicalName)
             put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer::class.java.canonicalName)
             put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"latest")
