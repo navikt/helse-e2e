@@ -31,7 +31,7 @@ class KafkaClient() {
             put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer::class.java.canonicalName)
             put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer::class.java.canonicalName)
             put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"latest")
-            put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG,1000)
+            put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG,10000)
         }
         return KafkaConsumer<String, String>(props)
     }
