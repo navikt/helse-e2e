@@ -60,7 +60,7 @@ services:
     - AKTORREGISTER_URL=https://vtpmock.local:8063/aktoerrest
     - ARBEIDSFORDELING_ENDPOINTURL=http://localhost/TODO
   spa:
-    image: ${SPA_IMAGE}
+    image: navikt/spa:cab48e2
     depends_on:
       - kafka
       - sparkel
