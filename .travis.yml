@@ -15,7 +15,7 @@ script:
 - docker-compose rm -f
 - docker-compose up --build -d
 - pwd
-#- "./e2e_scripts/wait_for_e2e.sh mvn failsafe:integration-test failsafe:verify"
+- "./e2e_scripts/wait_for_e2e.sh mvn failsafe:integration-test failsafe:verify"
 - docker-compose stop
 cache:
   directories:
