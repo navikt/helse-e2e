@@ -5,6 +5,7 @@ jdk:
 services:
 - docker
 script:
+- set -e
 - mvn clean install
 - ./makekeystore.sh
 - |
@@ -15,7 +16,6 @@ script:
 - docker-compose up --build -d
 - pwd
 - "./e2e_scripts/wait_for_e2e.sh mvn failsafe:integration-test failsafe:verify"
-- docker-compose logs
 - docker-compose stop
 cache:
   directories:
