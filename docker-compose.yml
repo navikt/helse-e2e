@@ -44,23 +44,21 @@ services:
     environment:
     - NAV_TRUSTSTORE_PATH=/mockkeys/truststore.jks
     - NAV_TRUSTSTORE_PASSWORD=changeit
-    # this will be mocked
-    - JWKS_URL=https://vtpmock:8063/isso/oauth2/connect/jwk_uri
-    - JWT_ISSUER=https://vtpmock:8063/isso/oauth2
-    - SECURITY_TOKEN_SERVICE_URL=https://vtpmock:8063/SecurityTokenServiceProvider/
-    - SECURITY_TOKEN_SERVICE_REST_URL=https://vtpmock:8063/stsrest
+    - JWKS_URL=https://vtpmock.local:8063/isso/oauth2/connect/jwk_uri
+    - JWT_ISSUER=https://vtpmock.local:8063/isso/oauth2
+    - SECURITY_TOKEN_SERVICE_URL=https://vtpmock.local:8063/SecurityTokenServiceProvider/
+    - SECURITY_TOKEN_SERVICE_REST_URL=https://vtpmock.local:8063/stsrest
     - SECURITY_TOKEN_SERVICE_USERNAME=srvheisann
     - SECURITY_TOKEN_SERVICE_PASSWORD=tralalal
-    - PERSON_ENDPOINTURL=https://vtpmock:8063/tpsws/ws/Person/v3
-    - INNTEKT_ENDPOINTURL=https://vtpmock:8063/inntektskomponenten-ws/inntekt/v3/Inntekt
-    - AAREG_ENDPOINTURL=https://vtpmock:8063/aareg-core/ArbeidsforholdService/v3
-    - ORGANISASJON_ENDPOINTURL=https://vtpmock:8063/ereg/ws/OrganisasjonService/v5
+    - PERSON_ENDPOINTURL=https://vtpmock.local:8063/tpsws/ws/Person/v3
+    - INNTEKT_ENDPOINTURL=https://vtpmock.local:8063/inntektskomponenten-ws/inntekt/v3/Inntekt
+    - AAREG_ENDPOINTURL=https://vtpmock.local:8063/aareg-core/ArbeidsforholdService/v3
+    - ORGANISASJON_ENDPOINTURL=https://vtpmock.local:8063/ereg/ws/OrganisasjonService/v5
     - SAK_OG_BEHANDLING_ENDPOINTURL=http://localhost/TODO
-    - HENT_SYKEPENGER_ENDPOINTURL=https://vtpmock:8063/sykepenger/v2/Sykepenger_v2
-    - MELDEKORT_UTBETALINGSGRUNNLAG_ENDPOINTURL=https://vtpmock:8063/ail_ws/MeldekortUtbetalingsgrunnlag_v1
-    - AKTORREGISTER_URL=https://vtpmock:8063/aktoerrest
+    - HENT_SYKEPENGER_ENDPOINTURL=https://vtpmock.local:8063/sykepenger/v2/Sykepenger_v2
+    - MELDEKORT_UTBETALINGSGRUNNLAG_ENDPOINTURL=https://vtpmock.local:8063/ail_ws/MeldekortUtbetalingsgrunnlag_v1
+    - AKTORREGISTER_URL=https://vtpmock.local:8063/aktoerrest
     - ARBEIDSFORDELING_ENDPOINTURL=http://localhost/TODO
-    - DISABLE_CN_CHECK=true
   spa:
     image: ${SPA_IMAGE}
     depends_on:
@@ -76,7 +74,7 @@ services:
     - NAV_TRUSTSTORE_PASSWORD=changeit
     - SERVICEUSER_USERNAME=srvspa
     - SERVICEUSER_PASSWORD=trololol
-    - SECURITY_TOKEN_SERVICE_REST_URL=https://vtpmock:8063/stsrest
+    - SECURITY_TOKEN_SERVICE_REST_URL=https://vtpmock.local:8063/stsrest
     - SPARKEL_BASE_URL=http://sparkel:8080
     - PLAIN_TEXT_KAFKA=true
     entrypoint: ["/e2e_scripts/wait_for_e2e.sh", "/entrypoint.sh"]
@@ -84,10 +82,14 @@ services:
     - "8181:80"
   vtpmock:
     image: ${VTPMOCK_IMAGE}
+    networks:
+      default:
+        aliases:
+          - vtpmock.local
     ports:
-    - "8063:8063"
     - "8060:8060"
-    #environment:
+    - "8063:8063"
+    # environment:
     #- JAVA_OPTS=-Dscenarios.dir=/app/model/scenarios/ -Dscenarios.reload=true
     volumes:
     - ./mockkeys:/root/spsak
