@@ -34,6 +34,7 @@ fun main() {
 fun createKafkaTopics() {
     createTopic(Topics.SYKEPENGESØKNADER_INN.name)
     createTopic(Topics.VEDTAK_SYKEPENGER.name)
+    createTopic(Topics.SYKEPENGEBEHANDLINGSFEIL.name)
 }
 
 private fun createTopic(topicName: String) {
