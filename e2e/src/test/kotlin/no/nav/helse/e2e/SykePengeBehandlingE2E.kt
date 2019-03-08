@@ -30,6 +30,7 @@ class SykePengeBehandlingE2E {
 
     @Test
     fun `e2e scenario 200 person med for lav inntekt`  () {
+        log.info("Kjører scenario 200, person med for lav inntekt")
         val (_, _, result) = "http://localhost:8060/api/testscenario/200".httpPost().responseString()
         val soknad = sykepengesoknad(result)
         val records = sendSoknad(soknad)
@@ -39,6 +40,7 @@ class SykePengeBehandlingE2E {
 
     @Test
     fun `e2e scenario 201 person som tilfredstille alle kravene` () {
+        log.info("Kjører scenario 201, en happy day case")
         val (_, _, result) = "http://localhost:8060/api/testscenario/201".httpPost().responseString()
         val soknad = sykepengesoknad(result)
         val records = sendSoknad(soknad)
@@ -48,6 +50,7 @@ class SykePengeBehandlingE2E {
 
     @Test
     fun `e2e scenario 202 person med 2 arbeidsforhold` () {
+        log.info("kjører scenario 202, person med 2 arbeidsforhold")
         val (_, _, result) = "http://localhost:8060/api/testscenario/202".httpPost().responseString()
         val soknad = sykepengesoknad(result)
         val records = sendSoknad(soknad)
@@ -57,6 +60,7 @@ class SykePengeBehandlingE2E {
 
     @Test
     fun `e2e scenario 203 person som er for gammel`() {
+        log.info("Kjører scenario 203, person som er for gammel")
         val (_, _, result) = "http://localhost:8060/api/testscenario/203".httpPost().responseString()
         val soknad = sykepengesoknad(result)
         val records = sendSoknad(soknad)
