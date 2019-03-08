@@ -13,24 +13,28 @@ For å oppdatere figuren bruk denne kommandoen:
 ```
 docker run --rm -it --name dcv -v $(pwd):/input pmsipilot/docker-compose-viz render --no-ports --no-networks -m image docker-compose.yml
 ```
-## Kom i gang
-
-```
-mvn clean install
-docker-compose up --build
-```
 
 #### Nøkler:
 
 For at sparkel skal kunne kommunisere med vtpmock over SSL samt for å signere JWT´er med mock-STS må det genereres noen nøkler.
 Dette kan gjøres ved å kjøre `./makekeystore.sh`
 
+#### Kom i gang
+
+```
+mvn clean install
+export SPA_IMAGE=navikt/spa:$(curl -s https://registry.hub.docker.com/v2/repositories/navikt/spa/tags/ | jq -r '."results"[]["name"]' | sed -n 1p)
+export SPARKEL_IMAGE=navikt/sparkel:$(curl -s https://registry.hub.docker.com/v2/repositories/navikt/sparkel/tags/ | jq -r '."results"[]["name"]' | sed -n 1p)
+export VTPMOCK_IMAGE=navikt/spvtpmock:$(curl -s https://registry.hub.docker.com/v2/repositories/navikt/spvtpmock/tags/ | jq -r '."results"[]["name"]' | sed -n 1p)
+docker-compose up --build
+```
+
 #### Manuell test av sparkel vs. vtpmock:
 
-Lag et accessToken for "srvspa" systembruker (NB: vtpmock speiler per nå Issuer fra url.
-Issuer er konfigurert til å måtte være https://vtpmock..., så url må være https://vtpmock, altså må 127.0.0.1 vtpmock inn i etc/hosts)
+Lag et accessToken for "srvspa" systembruker (NB: vtpmock.local speiler per nå Issuer fra url.
+Issuer er konfigurert til å måtte være https://vtpmock.local..., så url må være https://vtpmock.local, altså må 127.0.0.1 vtpmock.local inn i etc/hosts)
 
-`curl -k --data "code=srvspa" https://vtpmock:8063/isso/oauth2/access_token`
+`curl -k --data "code=srvspa" https://vtpmock.local:8063/isso/oauth2/access_token`
 
 Last f.eks. scenario #50 inne i mocken + returner disse scenario-dataene (http på 8060, https på 8063):
 
