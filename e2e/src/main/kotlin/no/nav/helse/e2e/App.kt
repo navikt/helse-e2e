@@ -35,6 +35,8 @@ fun createKafkaTopics() {
     createTopic(Topics.SYKEPENGESØKNADER_INN.name)
     createTopic(Topics.VEDTAK_SYKEPENGER.name)
     createTopic(Topics.SYKEPENGEBEHANDLINGSFEIL.name)
+    //legacy
+    createTopic("syfo-soknad-v1")
 }
 
 private fun createTopic(topicName: String) {
