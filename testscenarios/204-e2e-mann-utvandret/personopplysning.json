@@ -1,0 +1,37 @@
+{
+  "søker": {
+    "@type": "søker",
+    "ident": "${for1}",
+    "fornavn": "GEIR",
+    "etternavn": "GEIRSEN",
+    "fødselsdato": "1981-07-12",
+    "kjønn": "M",
+    "geografiskTilknytning": {
+      "type": "Land",
+      "kode": "NOR"
+    },
+    "adresser": [
+      {
+        "@type": "ref",
+        "fom": "now() - P1Y",
+        "adresseType": "BOSTEDSADRESSE",
+        "land": "SWE"
+      }
+    ],
+    "personstatus": [
+      {
+        "kode": "UTVA",
+        "fom": "now() - P1Y"
+      }
+    ],
+    "sivilstand": [
+      {
+        "kode": "GIFT"
+      }
+    ],
+    "medlemskap": {
+      "perioder": [
+      ]
+    }
+  }
+}

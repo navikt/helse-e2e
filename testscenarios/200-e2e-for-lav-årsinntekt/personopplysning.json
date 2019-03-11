@@ -1,0 +1,37 @@
+{
+  "søker": {
+    "@type": "søker",
+    "ident": "${for1}",
+    "fornavn": "BLÅØYD",
+    "etternavn": "SKILPADDE",
+    "fødselsdato": "1982-12-07",
+    "kjønn": "M",
+    "geografiskTilknytning": {
+      "type": "Land",
+      "kode": "NOR"
+    },
+    "adresser": [
+      {
+        "@type": "ref",
+        "fom": "now() - P1Y",
+        "adresseType": "BOSTEDSADRESSE",
+        "land": "NOR"
+      }
+    ],
+    "personstatus": [
+      {
+        "kode": "BOSA",
+        "fom": "1982-12-07"
+      }
+    ],
+    "sivilstand": [
+      {
+        "kode": "GIFT"
+      }
+    ],
+    "medlemskap": {
+      "perioder": [
+      ]
+    }
+  }
+}

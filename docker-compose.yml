@@ -89,8 +89,8 @@ services:
     ports:
     - "8060:8060"
     - "8063:8063"
-    # environment:
-    #- JAVA_OPTS=-Dscenarios.dir=/app/model/scenarios/ -Dscenarios.reload=true
+    environment:
+    - JAVA_OPTS=-Dscenarios.dir=/app/model/scenarios/ -Dscenarios.reload=true
     volumes:
     - ./mockkeys:/root/spsak
-    #- ./testscenarios:/app/model/scenarios
+    - ./testscenarios:/app/model/scenarios

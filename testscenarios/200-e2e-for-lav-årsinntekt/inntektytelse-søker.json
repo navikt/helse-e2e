@@ -1,0 +1,91 @@
+{
+	"arena": {
+		"saker": [
+			{
+				"saksnummer": "${arenasak1}",
+				"tema": "AAP",
+				"status": "AKTIV",
+				"vedtak": [
+					{
+						"fom": "now() - P1M",
+						"tom": "now() + P2M",
+						"vedtakDato": "now() - P1M1D",
+						"kravMottattDato": "now() - P1M5D",
+						"status": "IVERK",
+						"meldekort": [
+							{
+								"fom": "now() - P1M",
+								"tom": "now() + P2M",
+								"dagsats": 10000,
+								"beløp": 10,
+								"utbetalingsgrad": 1
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	"inntektskomponent": {
+		"inntektsperioder": [
+			{
+				"fom": "now() - P5M",
+				"tom": "now() - P4M",
+				"beløp": 18500,
+				"orgnr": "910825518",
+				"type": "Lønnsinntekt",
+				"fordel": "kontantytelse",
+				"beskrivelse": "fastloenn"
+			},
+			{
+				"fom": "now() - P3M",
+				"tom": "now() - P2M",
+				"beløp": 19500,
+				"orgnr": "910825518",
+				"type": "Lønnsinntekt",
+				"fordel": "kontantytelse",
+				"beskrivelse": "fastloenn"
+			}
+		]
+	},
+	"aareg": {
+		"arbeidsforhold": [
+			{
+				"arbeidsforholdId": "ARB001-001",
+				"arbeidsforholdIdNav": "1238161",
+				"ansettelsesperiodeFom": "now() - P24M",
+				"arbeidsforholdstype": "ordinaertArbeidsforhold",
+				"arbeidsgiverOrgnr": "910825518",
+
+				"arbeidsavtaler" : [
+					{
+						"fomGyldighetsperiode": "now() - P24M",
+						"sisteLønnsendringsdato": "now() - P1M",
+						"avlønningstype": "fastlønn",
+						"avtaltArbeidstimerPerUke": "40",
+						"stillingsprosent" : 100,
+						"beregnetAntallTimerPerUke": "30"
+					}
+				]
+
+			}
+		]
+	},
+	"sigrun": {
+		"inntektsår": [
+			{
+				"år": "2016",
+				"oppføring": [
+					{
+						"tekniskNavn": "ettellerannet",
+						"beløp": 5000
+					},
+					{
+						"tekniskNavn": "noeannet",
+						"beløp": 6000
+					}
+				]
+			}
+		]
+	}
+ }
