@@ -68,6 +68,16 @@ class SykePengeBehandlingE2E {
         Thread.sleep(1000)
     }
 
+    @Test
+    fun `e2e scenario 204 person so har flyttet til Sverige`() {
+        log.info("Kjører scenario 204, person som har flyttet til Sverige")
+        val (_, _, result) = "http://localhost:8060/api/testscenario/204".httpPost().responseString()
+        val soknad = sykepengesoknad(result)
+        val records = sendSoknad(soknad)
+        assertEquals(Topics.SYKEPENGEBEHANDLINGSFEIL.name, records!!.first().topic())
+        Thread.sleep(1000)
+    }
+
     private fun sendSoknad(soknad: Sykepengesoknad): ConsumerRecords<String, String>? {
         producer.send(ProducerRecord(Topics.SYKEPENGESØKNADER_INN.name, defaultObjectMapper.writeValueAsString(soknad)))
         producer.flush()
