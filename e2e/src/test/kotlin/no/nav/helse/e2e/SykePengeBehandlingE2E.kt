@@ -69,7 +69,7 @@ class SykePengeBehandlingE2E {
     }
 
     @Test
-    fun `e2e scenario 204 person so har flyttet til Sverige`() {
+    fun `e2e scenario 204 person som har flyttet til Sverige`() {
         log.info("Kjører scenario 204, person som har flyttet til Sverige")
         val (_, _, result) = "http://localhost:8060/api/testscenario/204".httpPost().responseString()
         val soknad = sykepengesoknad(result)
