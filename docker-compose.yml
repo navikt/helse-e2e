@@ -80,6 +80,8 @@ services:
     entrypoint: ["/e2e_scripts/wait_for_e2e.sh", "/entrypoint.sh"]
     ports:
     - "8181:80"
+  infotrygd-sykepenger:
+    image:
   vtpmock:
     image: ${VTPMOCK_IMAGE}
     networks:
