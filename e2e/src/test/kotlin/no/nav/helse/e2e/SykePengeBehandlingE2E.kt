@@ -79,7 +79,7 @@ class SykePengeBehandlingE2E {
     }
 
     private fun sendSoknad(soknad: Sykepengesoknad): ConsumerRecords<String, String>? {
-        producer.send(ProducerRecord(Topics.SYKEPENGESØKNADER_INN.name, defaultObjectMapper.writeValueAsString(soknad)))
+        producer.send(ProducerRecord(Topics.SYKEPENGESØKNADER_INN.name, soknad.id, defaultObjectMapper.writeValueAsString(soknad)))
         producer.flush()
         val records = consumer.poll(Duration.ofSeconds(30))
         consumer.commitSync()
@@ -118,7 +118,9 @@ data class Sykepengesoknad(val aktorId: String,
                            val sendtNav: LocalDateTime = LocalDateTime.now(),
                            val soknadsperioder: List<Soknadsperiode>,
                            val harVurdertInntekt: Boolean,
-                           val status: String = "SENDT")
+                           val status: String = "SENDT",
+                           val type: String = "ARBEIDSTAKERE",
+                           val id: String = System.currentTimeMillis().toString())
 
 
 data class Arbeidsgiver(val navn : String , val orgnummer : String )
