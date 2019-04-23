@@ -64,7 +64,8 @@
 						"avlønningstype": "fastlønn",
 						"avtaltArbeidstimerPerUke": "40",
 						"stillingsprosent" : 100,
-						"beregnetAntallTimerPerUke": "30"
+						"beregnetAntallTimerPerUke": "30",
+						"yrke": { "value" : "Vaktmester" }
 					}
 				]
 			},
@@ -82,7 +83,8 @@
 						"avlønningstype": "fastlønn",
 						"avtaltArbeidstimerPerUke": "40",
 						"stillingsprosent" : 100,
-						"beregnetAntallTimerPerUke": "30"
+						"beregnetAntallTimerPerUke": "30",
+						"yrke": { "value" : "Vaktmester" }
 					}
 				]
 			}
