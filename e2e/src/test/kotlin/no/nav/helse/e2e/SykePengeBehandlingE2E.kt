@@ -42,6 +42,7 @@ class SykePengeBehandlingE2E {
     fun `e2e scenario 201 person som tilfredstille alle kravene` () {
         log.info("Kjører scenario 201, en happy day case")
         val (_, _, result) = "http://localhost:8060/api/testscenario/201".httpPost().responseString()
+        println(result)
         val soknad = sykepengesoknad(result)
         val records = sendSoknad(soknad)
         assertEquals(Topics.VEDTAK_SYKEPENGER.name, records!!.first().topic())
@@ -52,6 +53,7 @@ class SykePengeBehandlingE2E {
     fun `e2e scenario 202 person med 2 arbeidsforhold` () {
         log.info("kjører scenario 202, person med 2 arbeidsforhold")
         val (_, _, result) = "http://localhost:8060/api/testscenario/202".httpPost().responseString()
+
         val soknad = sykepengesoknad(result)
         val records = sendSoknad(soknad)
         assertEquals(Topics.SYKEPENGEBEHANDLINGSFEIL.name, records!!.first().topic())
@@ -120,7 +122,9 @@ data class Sykepengesoknad(val aktorId: String,
                            val harVurdertInntekt: Boolean,
                            val status: String = "SENDT",
                            val type: String = "ARBEIDSTAKERE",
-                           val id: String = System.currentTimeMillis().toString())
+                           val id: String = System.currentTimeMillis().toString(),
+                           val fravar:List<Object> = emptyList(),
+                           val andreInntektskilder: List<Object> = emptyList())
 
 
 data class Arbeidsgiver(val navn : String , val orgnummer : String )
