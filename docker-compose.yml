@@ -60,6 +60,7 @@ services:
     - AKTORREGISTER_URL=https://vtpmock.local:8063/aktoerrest
     - ARBEIDSFORDELING_ENDPOINTURL=http://localhost/TODO
     - FINN_INFOTRYGD_GRUNNLAG_LISTE_ENDPOINTURL=https://vtpmock.local:8063/infotrygd-ws/InfotrygdBeregningsgrunnlag/v1
+    - INFOTRYGD_SAK_ENDPOINTURL=https://vtpmock.local:8063/infotrygd-ws/InfotrygdSak/v1
     - HENT_SYKEPENGEPERIODER_ENDPOINTURL=http://ohno
   spa:
     image: ${SPA_IMAGE}
